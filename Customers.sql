@@ -1,32 +1,33 @@
+https://medium.com/@kocelifk/sql-b3648218d30f
 
---2. Customers tablosundan adý ‘A’ harfi ile baþlayan kiþileri çeken sorguyu yazýnýz.--
+--Customers tablosundan adÄ± â€˜Aâ€™ harfi ile baÅŸlayan kiÅŸileri Ã§eken sorguyu yazÄ±nÄ±z.--
 SELECT * FROM CUSTOMERS WHERE CUSTOMERNAME LIKE 'A%'
 
 
---3. 1990 ve 1995 yýllarý arasýnda doðan müþterileri çekiniz. 1990 ve 1995 yýllarý dahildir--
+--1990 ve 1995 yÄ±llarÄ± arasÄ±nda doÄŸan mÃ¼ÅŸterileri Ã§ekiniz. 1990 ve 1995 yÄ±llarÄ± dahildir--
  SELECT * FROM CUSTOMERS WHERE BIRTHDATE BETWEEN '1990-01-01' AND '1995-12-31' ORDER BY BIRTHDATE
 
 
---4. Ýstanbul’da yaþayan kiþileri Join kullanarak getiren sorguyu yazýnýz.
- SELECT CUSTOMERS.*, CITY FROM CUSTOMERS INNER JOIN CITIES  ON CUSTOMERS.CITYID = CITIES.ID WHERE CITIES.CITY = 'ÝSTANBUL'
+--Ä°stanbulâ€™da yaÅŸayan kiÅŸileri Join kullanarak getiren sorguyu yazÄ±nÄ±z.
+ SELECT CUSTOMERS.*, CITY FROM CUSTOMERS INNER JOIN CITIES  ON CUSTOMERS.CITYID = CITIES.ID WHERE CITIES.CITY = 'Ä°STANBUL'
 
 
- --5. Ýstanbul’da yaþayan kiþileri subquery kullanarak getiren sorguyu yazýnýz.--
- SELECT * FROM CUSTOMERS  WHERE CUSTOMERS.CITYID IN (SELECT ID FROM CITIES  WHERE CITY='ÝSTANBUL') -- þehirler tablosunda bulunan Id sütunu deðeri ile müþteriler tablosunda bulunan þehir id'nin eþleþtiði, þehir adýný Ýstanbul olduðu satýrlarý göster
+ --Ä°stanbulâ€™da yaÅŸayan kiÅŸileri subquery kullanarak getiren sorguyu yazÄ±nÄ±z.--
+ SELECT * FROM CUSTOMERS  WHERE CUSTOMERS.CITYID IN (SELECT ID FROM CITIES  WHERE CITY='Ä°STANBUL') -- ÅŸehirler tablosunda bulunan Id sÃ¼tunu deÄŸeri ile mÃ¼ÅŸteriler tablosunda bulunan ÅŸehir id'nin eÅŸleÅŸtiÄŸi, ÅŸehir adÄ±nÄ± Ä°stanbul olduÄŸu satÄ±rlarÄ± gÃ¶ster
 
- --6. Hangi þehirde kaç müþterimizin olduðu bilgisini getiren sorguyu yazýnýz.-- 
- SELECT CITIES.CITY AS ÞEHÝR, COUNT(CUSTOMERS.ID) AS MÜÞTERÝ_SAYISI FROM CUSTOMERS INNER JOIN CITIES ON CITIES.ID = CUSTOMERS.CITYID GROUP BY CITIES.CITY ORDER BY MÜÞTERÝ_SAYISI
+ --Hangi ÅŸehirde kaÃ§ mÃ¼ÅŸterimizin olduÄŸu bilgisini getiren sorguyu yazÄ±nÄ±z.-- 
+ SELECT CITIES.CITY AS ÅžEHÄ°R, COUNT(CUSTOMERS.ID) AS MÃœÅžTERÄ°_SAYISI FROM CUSTOMERS INNER JOIN CITIES ON CITIES.ID = CUSTOMERS.CITYID GROUP BY CITIES.CITY ORDER BY MÃœÅžTERÄ°_SAYISI
 
- --7. 10’dan fazla müþterimiz olan þehirleri müþteri sayýsý ile birlikte müþteri sayýsýna göre fazladan aza doðru sýralý þekilde getiriniz.--
- SELECT CITY AS ÞEHÝR, (SELECT COUNT(*) AS MÜÞTERÝ_SAYISI FROM CUSTOMERS WHERE CITYID = CITIES.ID) AS MÜÞTERÝ_SAYISI FROM CITIES WHERE (SELECT COUNT(*)  FROM CUSTOMERS WHERE CITYID = CITIES.ID) > 10 ORDER BY MÜÞTERÝ_SAYISI DESC
+ --10â€™dan fazla mÃ¼ÅŸterimiz olan ÅŸehirleri mÃ¼ÅŸteri sayÄ±sÄ± ile birlikte mÃ¼ÅŸteri sayÄ±sÄ±na gÃ¶re fazladan aza doÄŸru sÄ±ralÄ± ÅŸekilde getiriniz.--
+ SELECT CITY AS ÅžEHÄ°R, (SELECT COUNT(*) AS MÃœÅžTERÄ°_SAYISI FROM CUSTOMERS WHERE CITYID = CITIES.ID) AS MÃœÅžTERÄ°_SAYISI FROM CITIES WHERE (SELECT COUNT(*)  FROM CUSTOMERS WHERE CITYID = CITIES.ID) > 10 ORDER BY MÃœÅžTERÄ°_SAYISI DESC
 
- --8. Hangi þehirde kaç erkek, kaç kadýn müþterimizin olduðu bilgisini þekildeki gibi getiren sorguyu yazýnýz.--
- SELECT CITIES.CITY AS ÞEHÝR, CUSTOMERS.GENDER AS CÝNSÝYET, COUNT(CUSTOMERS.ID) AS MÜÞTERÝ_SAYISI FROM CUSTOMERS INNER JOIN CITIES ON CITIES.ID = CUSTOMERS.CITYID GROUP BY CITIES.CITY, CUSTOMERS.GENDER ORDER BY CITIES.CITY, CUSTOMERS.GENDER
+ --Hangi ÅŸehirde kaÃ§ erkek, kaÃ§ kadÄ±n mÃ¼ÅŸterimizin olduÄŸu bilgisini ÅŸekildeki gibi getiren sorguyu yazÄ±nÄ±z.--
+ SELECT CITIES.CITY AS ÅžEHÄ°R, CUSTOMERS.GENDER AS CÄ°NSÄ°YET, COUNT(CUSTOMERS.ID) AS MÃœÅžTERÄ°_SAYISI FROM CUSTOMERS INNER JOIN CITIES ON CITIES.ID = CUSTOMERS.CITYID GROUP BY CITIES.CITY, CUSTOMERS.GENDER ORDER BY CITIES.CITY, CUSTOMERS.GENDER
 
- --9. Customers tablosuna yaþ grubu için yeni bir alan ekleyiniz. Bu iþlemi hem management studio ile hem de sql kodu ile yapýnýz.Alaný adý AGEGROUP veritipi Varchar(50) --
+ --Customers tablosuna yaÅŸ grubu iÃ§in yeni bir alan ekleyiniz. Bu iÅŸlemi hem management studio ile hem de sql kodu ile yapÄ±nÄ±z.AlanÄ± adÄ± AGEGROUP veritipi Varchar(50) --
   ALTER TABLE CUSTOMERS ADD AGEGROUP VARCHAR(50)
 
---10. Customers tablosuna eklediðiniz AGEGROUP alanýný 20-35 yaþ arasý,36-45 yaþ arasý,46-55 yaþ arasý,55-65 yaþ arasý ve 65 yaþ üstü olarak güncelleyiniz.--
+--Customers tablosuna eklediÄŸiniz AGEGROUP alanÄ±nÄ± 20-35 yaÅŸ arasÄ±,36-45 yaÅŸ arasÄ±,46-55 yaÅŸ arasÄ±,55-65 yaÅŸ arasÄ± ve 65 yaÅŸ Ã¼stÃ¼ olarak gÃ¼ncelleyiniz.--
 
 UPDATE CUSTOMERS SET AGEGROUP='20-35 YAS' WHERE DATEDIFF(YEAR,BIRTHDATE,GETDATE()) BETWEEN 20 AND 35
 
@@ -36,30 +37,16 @@ UPDATE CUSTOMERS SET AGEGROUP='46-55 YAS' WHERE DATEDIFF(YEAR,BIRTHDATE,GETDATE(
 
 UPDATE CUSTOMERS SET AGEGROUP='55-65 YAS' WHERE DATEDIFF(YEAR,BIRTHDATE,GETDATE()) BETWEEN 56 AND 65
 
-UPDATE CUSTOMERS SET AGEGROUP='65 YAS ÜSTÜ' WHERE DATEDIFF(YEAR,BIRTHDATE,GETDATE()) > 65
+UPDATE CUSTOMERS SET AGEGROUP='65 YAS ÃœSTÃœ' WHERE DATEDIFF(YEAR,BIRTHDATE,GETDATE()) > 65
 
 
---11. Ýstanbul’da yaþayýp ilçesi ‘Kadýköy’ dýþýnda olanlarý listeleyiniz.--
- SELECT * FROM CUSTOMERS WHERE CITYID IN (SELECT ID FROM CITIES WHERE CITY='ÝSTANBUL') AND DISTRICTID NOT IN (SELECT ID FROM DISTRICTS WHERE DISTRICT='KADIKÖY')
+--Ä°stanbulâ€™da yaÅŸayÄ±p ilÃ§esi â€˜KadÄ±kÃ¶yâ€™ dÄ±ÅŸÄ±nda olanlarÄ± listeleyiniz.--
+ SELECT * FROM CUSTOMERS WHERE CITYID IN (SELECT ID FROM CITIES WHERE CITY='Ä°STANBUL') AND DISTRICTID NOT IN (SELECT ID FROM DISTRICTS WHERE DISTRICT='KADIKÃ–Y')
 
 
---12. Müþterilerimizin telefon numalarýnýn operatör bilgisini getirmek istiyoruz. --
---TELNR1 ve TELNR2 alanlarýnýn yanýna operatör numarasýný (532),(505) gibi getirmek istiyoruz. --
---Bu sorgu için gereken SQL cümlesini yazýnýz.--
+--Her ilde en Ã§ok mÃ¼ÅŸteriye sahip olduÄŸumuz ilÃ§eleri mÃ¼ÅŸteri sayÄ±sÄ±na gÃ¶re Ã§oktan aza doÄŸru sÄ±ralÄ± ÅŸekilde ÅŸekildeki gibi getirmek iÃ§in gereken sorguyu yazÄ±nÄ±z.
 
-
-
---13. Müþterilerimizin telefon numaralarýnýn operatör bilgisini getirmek istiyoruz.
---Örneðin telefon numaralarý “50” yada “55” ile baþlayan “X” operatörü  “54” ile baþlayan “Y” operatörü “53” ile baþlayan “Z” operatörü olsun. 
---Burada hangi operatörden ne kadar müþterimiz olduðu bilgisini getirecek sorguyu yazýnýz.
-
-
-
-
-
---14. Her ilde en çok müþteriye sahip olduðumuz ilçeleri müþteri sayýsýna göre çoktan aza doðru sýralý þekilde þekildeki gibi getirmek için gereken sorguyu yazýnýz.
-
- SELECT CITY AS ÞEHÝR, DISTRICT AS SEMT, COUNT(CUSTOMERS.ID) AS MÜÞTERÝ_SAYISI
+ SELECT CITY AS ÅžEHÄ°R, DISTRICT AS SEMT, COUNT(CUSTOMERS.ID) AS MÃœÅžTERÄ°_SAYISI
  FROM CUSTOMERS 
  INNER JOIN CITIES  ON CITIES.ID = CUSTOMERS.CITYID
  INNER JOIN DISTRICTS ON DISTRICTS.ID = CUSTOMERS.DISTRICTID
@@ -67,5 +54,5 @@ UPDATE CUSTOMERS SET AGEGROUP='65 YAS ÜSTÜ' WHERE DATEDIFF(YEAR,BIRTHDATE,GETDAT
  ORDER BY COUNT(CUSTOMERS.ID) DESC
 
 
- --15. Müþterilerin doðum günlerini resimdeki gibi haftanýn günü olarak getiren sorguyu yazýnýz.--
-SELECT   CUSTOMERS.CUSTOMERNAME AS MÜÞTERÝ_ADI, DATENAME(DW, BIRTHDATE) AS DOÐUM_GÜNÜ, BIRTHDATE AS DOÐUM_TARÝHÝ FROM CUSTOMERS
+ --15. MÃ¼ÅŸterilerin doÄŸum gÃ¼nlerini resimdeki gibi haftanÄ±n gÃ¼nÃ¼ olarak getiren sorguyu yazÄ±nÄ±z.--
+SELECT   CUSTOMERS.CUSTOMERNAME AS MÃœÅžTERÄ°_ADI, DATENAME(DW, BIRTHDATE) AS DOÄžUM_GÃœNÃœ, BIRTHDATE AS DOÄžUM_TARÄ°HÄ° FROM CUSTOMERS
